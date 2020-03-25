@@ -1,0 +1,36 @@
+.THIS .modal-body
+{
+    height:auto !important;
+    padding:0;
+}
+.THIS {
+    position: relative; 
+    height: 173px;
+}
+.THIS header {
+    top: -20px;
+    left: -25px;
+    width: calc(100% + 65px);
+}
+.THIS .footer-buttons {
+    position: absolute;
+    bottom: 0;
+    text-align: right;
+    width: 100%;
+    border-top: 2px solid #dddbda;
+    left: -25px;
+    width: calc(100% + 65px);
+    padding-top: 16px;
+}
+.THIS .forceChatterLightningComponent .bodyWrapper{
+    height:100%;
+    width:100%;
+    padding:0;
+    box-sizing:border-box
+}
+.THIS .slds-button {
+    margin-right: 10px;
+}
+.THIS .slds-button_brand {
+    margin-right: 20px;
+}

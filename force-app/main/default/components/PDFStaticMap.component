@@ -1,0 +1,10 @@
+<apex:component >
+    <apex:attribute name="locations" description="" type="String" />
+    <apex:attribute name="size" description="" type="String" />
+    <apex:attribute name="zoom" description="" type="String" />
+    <apex:attribute name="style" description="" type="String" />
+    <apex:attribute name="apiKey" default="pivkp6jFk2eob5k8tStJSGC3gxWGHkXr" description="" type="String" />
+    <apex:attribute name="type" default="mapquest" description="" type="String" />
+    <apex:image rendered="{!type=='mapquest'}" value="https://www.mapquestapi.com/staticmap/v5/map?key={!apiKey}&locations={!locations}&size={!size}&type=map&zoom={!zoom}&imagetype=jpg&scalebar=false" style="{!style}" />
+    <apex:image rendered="{!type!='mapquest'}" value="https://maps.googleapis.com/maps/api/staticmap?center={!locations}&zoom={!zoom}&markers=size:mid|color:red|{!locations}&size={!size}&scale=2&maptype=roadmap&key={!apiKey}&format=png&visual_refresh=true" style="{!style}" />
+</apex:component>

@@ -1,0 +1,161 @@
+<apex:page standardController="Opportunity" extensions="PDFGeneratorController">
+    <div style="page-break-before: always;"></div>
+    <div class="page page-4 stl_02" style="height: 11.69in">
+        <div class="stl_03">
+            <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/second-page-header.png')}" alt="" class="stl_70" />
+        </div>
+        <div class="container">
+            <c:PDFGeneratorHeader2 opportunityName="{!opportunity.Name}" 
+            opportunityLink="{!opLink}" 
+            createByUserName="{!user.Name}" 
+            opportunityAmount="{!opportunityAmount}" 
+            opportunitySplitAmount="{!opportunitySplitAmount}" 
+            currencyIsoCode="{!currencyIsoCode}"
+            projectManager="{!opportunity.projectManager__c}" 
+            opportunityEditionType__c="{!opportunity.editionType__c}"
+            logo="{!logo}"
+            secondLogo="{!secondLogo}" />
+            
+            <div class="text-box" style="top: 13.5em; height: 44em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_scoring_sheet}</div>
+                    <div class="content">
+                        <table class="scoring-table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:3%"></th>
+                                    <th></th>
+                                    <th class="c3" style="width:6%">
+                                        <span class="stl_77" style="font-weight:bold;">{!$Label.pdf_generator_acronym_green}</span>
+                                    </th>
+                                    <th class="c4" style="width:6%">
+                                        <span class="stl_78" style="font-weight:bold;">{!$Label.pdf_generator_acronym_orange}</span>
+                                    </th>
+                                    <th class="c5" style="width:6%">
+                                        <span class="stl_79" style="font-weight:bold;">{!$Label.pdf_generator_acronym_red}</span>
+                                    </th>
+                                    <th class="c6" style="width:16%">
+                                        <small style="color:#2477C1">
+                                                <apex:outputText value="{!$Label.pdf_generator_not_applicable_measurable}" escape="false" /></small>
+                                    </th>
+                                    <th class="c7" style="width:30%" align="left"><apex:outputText value="{!$Label.pdf_generator_observations}" escape="false" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td valign="top">1.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_client}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.customerScoring__c}" comment="{!opportunity.customerComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">2.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_project}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.projectScoring__c}" comment="{!opportunity.projectComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">3.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_contract}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.contractScoring__c}" comment="{!opportunity.contractComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">4.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_architect}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.architectScoring__c}" comment="{!opportunity.architectComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">5.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_design}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.designScoring__c}" comment="{!opportunity.designComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">6.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_technique}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.technicalScoring__c}" comment="{!opportunity.technicalComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">7.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_planning}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.planningScoring__c}" comment="{!opportunity.planningComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">8.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_moyens}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.meansScoring__c}" comment="{!opportunity.meansComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">9.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_partnerships}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.partnershipScoring__c}" comment="{!opportunity.partnershipComments__c}"></c:PDFCheckBoxColor>
+                                </tr>
+                                <tr>
+                                    <td valign="top">10.</td>
+                                    <td><apex:outputText value="{!$Label.pdf_generator_scoring_sheet_economy}" escape="false" /></td>
+                                    <c:PDFCheckBoxColor color="{!opportunity.economyScoring__c}" comment=""></c:PDFCheckBoxColor>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="position: absolute; top: 58.5em; width: 100%">
+                <div class="text-box" style="top: 0; height: 8em; width: 22em">
+                    <div class="inside">
+                        <div class="title">{!$Label.pdf_generator_visa_bybat}</div>
+                        <div class="content">
+                            <table style="width: 100%" class="p4-l-tb">
+                                <tr class="first">
+                                    <td>{!$Label.pdf_generator_sign_editor}</td>
+                                    <td style="width: 18%">{!$Label.pdf_generator_sign_dg_uo}</td>
+                                    <td style="width: 18%"></td>
+                                    <td>{!$Label.pdf_generator_sign_dg_scope}</td>
+                                    <td style="width: 18%"  class="last">{!$Label.pdf_generator_sign_bmr}</td>
+                                </tr>
+                                <tr style="height:3.5em">
+                                    <td>{!$Label.pdf_generator_nom}</td>
+                                    <td>{!$Label.pdf_generator_nom}</td>
+                                    <td>{!$Label.pdf_generator_nom}</td>
+                                    <td>{!$Label.pdf_generator_nom}</td>
+                                    <td class="last">{!$Label.pdf_generator_nom}</td>
+                                </tr>
+                                <tr style="height: 2.5em" class="last">
+                                    <td>{!$Label.pdf_generator_date}</td>
+                                    <td>{!$Label.pdf_generator_date}</td>
+                                    <td>{!$Label.pdf_generator_date}</td>
+                                    <td>{!$Label.pdf_generator_date}</td>
+                                    <td class="last">{!$Label.pdf_generator_date}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-box" style="left: 23em; height: 8em; width: 21em">
+                    <div class="inside">
+                        <div class="title">{!$Label.pdf_generator_visa_bycn}</div>
+                        <div class="content">
+                            <table align="center" style="width: 90%" class="p4-r-tb">
+                                <tr>
+                                    <td align="left">{!$Label.pdf_generator_diffusion_label}<br />{!$Label.pdf_generator_diffusion_content}</td>
+                                    <td style="width: 50%; text-align: right">
+                                        <div class="pdf-checkbox red"></div> {!$Label.pdf_generator_yes} &nbsp;
+                                        <div class="pdf-checkbox red"></div> {!$Label.pdf_generator_no}
+                                    </td>
+                                </tr>
+                                <tr class="last">
+                                    <td>{!$Label.pdf_generator_validation}</td>
+                                    <td style="width: 50%; text-align: right">
+                                        <div class="pdf-checkbox red"></div> {!$Label.pdf_generator_yes} &nbsp;
+                                        <div class="pdf-checkbox red"></div> {!$Label.pdf_generator_no}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <c:PDFFooter text="{!$Label.pdf_generator_footer_text}" number="4"></c:PDFFooter>
+        </div>
+    </div>
+</apex:page>

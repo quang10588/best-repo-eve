@@ -1,0 +1,15 @@
+.project-general-form {
+  width: 100%;
+}
+.project-general-form .project-general-form-left {
+  color: aqua;
+}
+
+.project-general-form .column-1 {
+  width: 60%;
+}
+
+.project-general-form .column-2 {
+  width: 60%;
+}
+

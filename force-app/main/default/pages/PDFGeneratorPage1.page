@@ -1,0 +1,180 @@
+<apex:page standardController="Opportunity" extensions="PDFGeneratorController">
+    <div style="page-break-before: always;"></div>
+    <div class="page stl_02" style="height: 11.69in">
+        <div class="stl_03">
+            <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/first-page-header.png')}" alt="" class="stl_04" />
+        </div>
+        <div class="container">
+            <c:PDFGeneratorHeader1 opportunityName="{!opportunity.Name}" 
+            opportunityLink="{!opLink}" 
+            createByUserName="{!user.Name}" 
+            opportunityAmount="{!opportunityAmount}" 
+            opportunitySplitAmount="{!opportunitySplitAmount}" 
+            currencyIsoCode="{!currencyIsoCode}"
+            projectManager="{!opportunity.projectManager__c}" 
+            opportunityEditionType__c="{!opportunity.editionType__c}"
+            logo="{!logo}" 
+            secondLogo="{!secondLogo}" />
+            <div class="line-text" style="top: 15em;">
+                <span class="text-md text-bold color-red">UO : </span>
+                <span class="text-md">{!user.UO__c}</span>
+            </div>
+            <div class="line-text" style="top: 17em;">
+                <span class="text-bold text-md">{!$Label.pdf_generator_creation_date}:</span>
+                <span class="text-md" style="padding-right: 1.5em">
+                    <apex:outputText value="{0,date, dd/MM/yyyy}">
+                        <apex:param value="{!IF(opportunity.Version_date_1__c == null, NOW(), opportunity.Version_date_1__c)}" />
+                    </apex:outputText>
+                </span>
+                <span class="text-bold text-md">
+                    <apex:outputText escape="false" value="{!$Label.pdf_generator_date_update_1st}" /> :
+                </span>
+                <span class="text-md" style="padding-right: 1.5em">
+                    <apex:outputText value="{0,date, dd/MM/yyyy}">
+                        <apex:param value="{!opportunity.Version_date_2__c}" />
+                    </apex:outputText>
+                </span>
+                <span class="text-bold text-md">
+                    <apex:outputText escape="false" value="{!$Label.pdf_generator_date_update_2nd}" /> :
+                </span>
+                <span class="text-md">
+                    <apex:outputText value="{0,date, dd/MM/yyyy}">
+                        <apex:param value="{!opportunity.Version_date_3__c}" />
+                    </apex:outputText>
+                </span>
+            </div>
+            <span class="line-m" style="top: 20.5em"></span>
+            <div class="text-box" style="top: 22em; height: 5.5em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_project_description}</div>
+                    <div class="content">{!opportunity.ProjectDescription__c}</div>
+                </div>
+            </div>
+            <div class="text-box" style="top: 29em;width: 18em;height: 5.8em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_project_address}</div>
+                    <div class="content"><a href="https://www.google.com/maps/search/{!URLENCODE(projectAddress)}" target="_blank">{!projectAddress}</a></div>
+                </div>
+            </div>
+            <div class="text-box" style="top: 36em; width: 18em; height: 12.2em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_quantities}</div>
+                    <div class="content">
+                        <apex:variable var="totalSDP" value="0" /> 
+                        <apex:variable var="typeOfQuantity" value="" /> 
+                        <div style="height:10.7em">
+                            <apex:repeat value="{!ouvrages}" var="ouvrage">
+                                <apex:variable var="totalSDP" value="{!(ouvrage.floorAreaSquareMeters__c + VALUE(totalSDP))}"/> 
+                                <apex:variable var="typeOfQuantity" value="{!ouvrage.typeOfQuantity__c}" /> 
+                                <div style="padding-bottom: 0.4em">
+                                    <span class="p2-label-right p2-label-right" >{!ouvrage.TypeOuvrage__c}</span>
+                                    <span style="word-spacing:0.04em; vertical-align:top">{!ouvrage.quantity__c} {!ouvrage.typeOfQuantity__c}</span>
+                                </div>
+                            </apex:repeat>
+                        </div>
+                        <span class="p2-label-right">{!$Label.pdf_generator_total_sdp} :</span>
+                        <span>
+                            <apex:outputText value="{0, number, integer}">
+                                <apex:param value="{!VALUE(totalSDP)}" /></apex:outputText>
+                                {!typeOfQuantity}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-box" style="top: 49.6em;width: 18em;height: 17em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_calendar_data}</div>
+                    <div class="content">
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_consultation}:</span>
+                            <span style="word-spacing:0em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}">
+                                    <apex:param value="{!opportunity.ApplicationDate__c}" /></apex:outputText>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_date_remise_offre_1} :</span>
+                            <span style="word-spacing:0.57em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}" rendered="{!dateRemiseOffres.size > 0}">
+                                    <apex:param value="{!dateRemiseOffres[0]}" /></apex:outputText>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_date_remise_offre_2} :</span>
+                            <span style="word-spacing:0.57em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}" rendered="{!dateRemiseOffres.size > 1}">
+                                    <apex:param value="{!dateRemiseOffres[1]}" /></apex:outputText>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_date_remise_offre_3} :</span>
+                            <span style="word-spacing:0.57em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}" rendered="{!dateRemiseOffres.size > 2}">
+                                    <apex:param value="{!dateRemiseOffres[2]}" /></apex:outputText>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_delai} :</span>
+                            <span style="word-spacing:0.57em;">
+                                <apex:outputPanel rendered="{!opportunity.AgreedContractualStartTime__c != null}">
+                                    <apex:outputtext value="{!$Label.pdf_generator_delai_mois}">
+                                        <apex:param value="{!opportunity.AgreedContractualStartTime__c}" />
+                                    </apex:outputtext>
+                                </apex:outputPanel>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_begin_work} :</span>
+                            <span style="word-spacing:0em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}">
+                                    <apex:param value="{!opportunity.WorkStartDate__c}" /></apex:outputText>
+                            </span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="p2-label-right">{!$Label.pdf_generator_end_work} :</span>
+                            <span style="word-spacing:0em;">
+                                <apex:outputText value="{0,date, dd/MM/yyyy}">
+                                    <apex:param value="{!opportunity.WorkEndDate__c}" /></apex:outputText>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-box" style="top: 29em;left: 18.8em;width: 25.2em;height: 17.4em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_location_image}</div>
+                    <div class="content" style="position: relative">
+                        <a href="https://www.google.com/maps/search/{!URLENCODE(projectAddress)}" target="_blank" style="position: absolute;top: 0.5em;left: 1em;width: 28.4em;height: 18.2em;z-index: 2;"></a>
+                        <apex:image rendered="{!mapImageId != null}" url="{!URLFOR($Action.Attachment.Download, mapImageId)}" style="width:100%;" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-box" style="top: 47.5em;left: 18.8em;width: 25.2em;height: 19.1em;">
+                <div class="inside">
+                    <div class="title" style="white-space: wrap">
+                        <apex:outputText value="{!$Label.pdf_generator_env_admin_financial}" escape="false" />
+                    </div>
+                    <div class="content p2-right">
+                        <div class="box-i-row">
+                            <span class="text-bold" style="word-spacing:0.05em;">{!$Label.pdf_generator_state_land} : </span>
+                            <span class="p2-text-box">{!opportunity.LandStage__c}</span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="text-bold" style="word-spacing:0em;">{!$Label.pdf_generator_admin_auth} : </span>
+                            <span class="p2-text-box">{!opportunity.administrativeAuthorisation__c}</span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="text-bold" style="word-spacing:0em;">{!$Label.pdf_generator_spec_perm} : </span>
+                            <span class="p2-text-box">{!opportunity.specificsAuthorisation__c}</span>
+                        </div>
+                        <div class="box-i-row">
+                            <span class="text-bold" style="word-spacing:0em;">{!$Label.pdf_generator_type_fund} : </span>
+                            <span>{!opportunity.Mode_de_financement__c}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:PDFFooter text="{!$Label.pdf_generator_footer_text}" number="1"></c:PDFFooter>
+        </div>
+    </div>
+</apex:page>

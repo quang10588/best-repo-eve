@@ -1,0 +1,18 @@
+<apex:component >
+    <apex:attribute name="text" description="" type="String" />
+    <apex:attribute name="number" description="" type="String" />
+    <div class="stl_01" style="top: 67.4em; left:0; width: 100%; text-align:center;">
+        <span class="stl_44" style="font-size: 0.7em">
+            {!$Label.pdf_generator_publish_date}: 
+            <apex:outputText value="{0,date, dd/MM/yyyy}">
+                <apex:param value="{!NOW()}" />
+            </apex:outputText>
+        </span>
+    </div>
+    <div class="stl_01" style="top: 68.5em; left:0; width: 100%; text-align:center">
+        <span class="stl_44">{!text}</span>
+    </div>
+    <div class="stl_01" style="top: 68.5em; right: 0;">
+        <span class="stl_46 stl_08"><b>{!number}</b></span>
+    </div>
+</apex:component>

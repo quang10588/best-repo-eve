@@ -1,0 +1,130 @@
+<apex:page standardController="Opportunity" extensions="PDFGeneratorController">
+    <div style="page-break-before: always;"></div>
+    <div class="page stl_02" style="height: 11.69in;">
+        <div class="stl_03">
+            <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/second-page-header.png')}" alt="" class="stl_62" />
+        </div>
+        <div class="container">
+            <c:PDFGeneratorHeader2 opportunityName="{!opportunity.Name}" 
+            opportunityLink="{!opLink}" 
+            createByUserName="{!user.Name}" 
+            opportunityAmount="{!opportunityAmount}" 
+            opportunitySplitAmount="{!opportunitySplitAmount}" 
+            currencyIsoCode="{!currencyIsoCode}"
+            projectManager="{!opportunity.projectManager__c}" 
+            opportunityEditionType__c="{!opportunity.editionType__c}"
+            logo="{!logo}" 
+            secondLogo="{!secondLogo}" />
+
+            <div class="line-text" style="top: 13.5em;">
+                <span class="label color-red" style="vertical-align:middle">{!$Label.pdf_generator_compliance_strategic_plan} :</span>
+                <span class="text">
+                    <c:PDFCheckboxLabel checked="{!opportunity.strategicCompliance__c}" label="{!$Label.pdf_generator_yes}"></c:PDFCheckboxLabel>
+                    <c:PDFCheckboxLabel checked="{!opportunity.strategicCompliance__c == FALSE}" label="{!$Label.pdf_generator_no}"></c:PDFCheckboxLabel>
+                </span>
+            </div>
+            <div class="line-text" style="top: 15em;">
+                <span class="label left" style="width: 11em">{!$Label.pdf_generator_compliance_strategic_plan_explain} :</span>
+                <span class="text left" style="width:38.7em">{!opportunity.StrategicComplianceExplanation__c}</span>
+            </div>
+
+            <div class="line-m dashed" style="top: 18.2em"></div>
+
+            <div class="text-box type-identifies" style="top: 19.2em; height: 19.1em;">
+                <div class="inside">
+                    <div class="title" style="padding-bottom:0.2em">{!$Label.pdf_generator_type_risks_identified}</div>
+                    <div class="content">
+                        <div style="padding-bottom: 0.4em">
+                            <span class="label-right" >{!$Label.pdf_generator_technical} :</span>
+                            <span class="text-box-inline">{!opportunity.TechnicalRisks__c}</span>
+                        </div>
+                        <div style="padding-bottom: 0.4em">
+                            <span class="label-right" >{!$Label.pdf_generator_planning} :</span>
+                            <span class="text-box-inline">{!opportunity.PlanningRisks__c}</span>
+                        </div>
+                        <div style="padding-bottom: 0.4em">
+                            <span class="label-right" >{!$Label.pdf_generator_legal} :</span>
+                            <span class="text-box-inline">{!opportunity.LegalRisks__c}</span>
+                        </div>
+                        <div style="padding-bottom: 0.4em">
+                            <span class="label-right" >{!$Label.pdf_generator_specific_insurance} :</span>
+                            <span  class="text-box-inline">{!opportunity.SpecificInsuranceRisks__c}</span>
+                        </div>
+                        <div style="padding-bottom: 0.4em">
+                            <span class="label-right" >{!$Label.pdf_generator_financial} :</span>
+                            <span class="text-box-inline">{!opportunity.FinancialRisks__c}</span>
+                        </div>
+                        <div style="padding-bottom: 0em">
+                            <span class="label-right" >{!$Label.pdf_generator_other} :</span>
+                            <span class="text-box-inline">{!opportunity.OtherRisks__c}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line-text" style="top: 39em;">
+                <span class="label color-red" style="vertical-align:middle">{!$Label.pdf_generator_solicitation_competence_engineering_department} :</span>
+                <div style="float: right; text-align: right; vertical-align:top">
+                    <span class="text" style="vertical-align:top">
+                        <c:PDFCheckboxLabel checked="{!opportunity.engineeringDirectionSolicitation__c}" label="{!$Label.pdf_generator_yes}"></c:PDFCheckboxLabel>
+                        <c:PDFCheckboxLabel checked="{!opportunity.engineeringDirectionSolicitation__c == FALSE}" label="{!$Label.pdf_generator_no}" style="margin: 0"></c:PDFCheckboxLabel>
+                    </span>
+                </div>
+            </div>
+
+            <div class="line-text" style="top: 40.6em;">
+                <span class="label inline" style="float: left;">{!$Label.pdf_generator_solicitation_competence_which} :</span>
+                <div style="width: 34em; float: right; text-align:left">
+                    <span class="text inline v-top">
+                        <apex:variable var="i" value="{!0}" />
+                        <apex:repeat value="{!engineeringDirectionsList}" var="engineeringDirection">
+                            <apex:outputPanel style="display:block" rendered="{!i==4}" />
+                            <c:PDFCheckboxLabel list="{!opportunity.engineeringDirections__c}" value="{!engineeringDirection}" label="{!engineeringDirection}" style="margin-right: 2.5em; margin-bottom: 0.3em" />
+                            <apex:variable var="i" value="{!i+1}" />
+                        </apex:repeat>
+                    </span>
+                </div>
+            </div>
+
+            <div class="line-text" style="top: 43.6em;">
+                <span class="label">{!$Label.pdf_generator_comment} :</span>
+                <span class="text inline v-top" style="width:40em">{!opportunity.engineeringComment__c}</span>
+            </div>
+
+            <div class="line-m dashed" style="top: 46em"></div>
+
+            <div class="line-text" style="top: 46.5em;">
+                <span class="label color-red" style="vertical-align:middle">{!$Label.pdf_generator_interal_partnerships_edc08}:</span>
+                <span class="text">
+                    <c:PDFCheckboxLabel checked="{!opportunity.EDC08_Partnership__c}" label="{!$Label.pdf_generator_yes}"></c:PDFCheckboxLabel>
+                    <c:PDFCheckboxLabel checked="{!opportunity.EDC08_Partnership__c == FALSE}" label="{!$Label.pdf_generator_no}" style="margin: 0"></c:PDFCheckboxLabel>
+                </span>
+            </div>
+
+            <div class="line-text" style="top: 48em;">
+                <span class="label">{!$Label.pdf_generator_edc08_which_why} :</span>
+            </div>
+            <div class="line-text" style="top: 49.2em;">
+                <span class="label">{!$Label.pdf_generator_which_entity} :</span>
+                <div class="text inline">{!opportunity.EDC08_who__c}</div>
+            </div>
+
+            <div class="line-text" style="top: 50.7em;">
+                <span class="label">{!$Label.pdf_generator_why} :</span>
+                <div class="text inline v-top" style="width: 40em">{!opportunity.EDC08_why__c}</div>
+            </div>
+
+            <div class="line-m dashed" style="top: 54em"></div>
+
+            <div class="text-box type-identifies" style="top: 55em; height: 11.5em;">
+                <div class="inside">
+                    <div class="title" style="padding-bottom: 0.2em">{!$Label.pdf_generator_business_strategies_comment}</div>
+                    <div class="content" style="line-height: 120%">
+                        {!opportunity.strategicComments__c}
+                    </div>
+                </div>
+            </div>
+            <c:PDFFooter text="{!$Label.pdf_generator_footer_text}" number="3"></c:PDFFooter>
+        </div>
+    </div>
+</apex:page>

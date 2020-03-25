@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" standardController="Opportunity" action="{!initAction}"
+ extensions="PDFGeneratorController" renderAs="pdf">
+	<html>
+	<head>
+		<link rel="stylesheet" media="all" href="{!URLFOR($Resource.FicheBBFE,'css/pdf-styles.css')}" />
+	</head>
+	<body>
+		<apex:include pageName="PDFGeneratorPage1"></apex:include>
+		<apex:include pageName="PDFGeneratorPage2"></apex:include>
+		<apex:include pageName="PDFGeneratorPage3"></apex:include>
+		<apex:include pageName="PDFGeneratorPage4"></apex:include>
+	</body>
+	</html>
+</apex:page>

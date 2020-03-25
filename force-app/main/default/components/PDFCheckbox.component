@@ -1,0 +1,7 @@
+<apex:component >
+    <apex:attribute name="list" description="" type="String" />
+    <apex:attribute name="value" description="" type="String" />
+    <span class="stl_59 stl_08 {!IF(list!='' && value != '', IF(CONTAINS(';'+list+';', ';'+value+';') == FALSE, 'hidden', ''), '')}">
+        <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" />
+    </span>
+</apex:component>

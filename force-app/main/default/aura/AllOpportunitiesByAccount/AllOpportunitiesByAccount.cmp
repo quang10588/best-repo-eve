@@ -1,0 +1,50 @@
+<!--
+ - Created by Aurélien Clerc on 06/06/2019.
+ -->
+
+<aura:component description="AllOpportunitiesByAccount" implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId" controller="LTNG01_AllOpportunitiesByAccount">
+
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="_isOpen" type="Boolean" default="true" />
+    <aura:attribute name="_isInit" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"  />
+
+    <!-- attributes -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List" default="[
+                {label: 'Nom de l\'Opportunité', fieldName: 'Name', type: 'text'},
+                {label: 'Référent', fieldName: 'ownerLink', type: 'url', typeAttributes: {label: { fieldName: 'ownerName' }, target: '_self'}},
+                {label: 'Étape', fieldName: 'StageName', type: 'text'},
+                {label: 'Prestation', fieldName: 'prestationName', type: 'text'},
+                {label: 'Date de prise de commande', fieldName: 'CloseDate', type: 'date'},
+                {label: 'Opération', fieldName: 'operationLink', type: 'url', typeAttributes: {label: { fieldName: 'operationName' }, target: '_self'}}
+            ]"/>
+
+
+    <aura:if isTrue="{!v._isInit}">
+        <div class="slds-box slds-theme_default">
+
+            <div class="{!v._isOpen ? 'slds-section slds-is-open' : 'slds-section'}">
+                <h3 class="slds-section__title">
+                    <lightning:button onclick="{!c.toggleSection}" iconName="{!v._isOpen ? 'utility:chevrondown' : 'utility:chevronright'}" class="slds-section__title-action" >
+                        <span class="slds-truncate" title="Opportunités"><lightning:icon iconName="standard:opportunity" size="small" /> Toutes les Opportunités ({!v.data.length})</span>
+                    </lightning:button>
+                </h3>
+
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+
+                    <div style="height: 300px">
+                        <lightning:datatable
+                                keyField="id"
+                                data="{!v.data}"
+                                columns="{!v.columns}"
+                                hideCheckboxColumn="true"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+
+</aura:component>

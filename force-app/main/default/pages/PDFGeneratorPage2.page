@@ -1,0 +1,134 @@
+<apex:page standardController="Opportunity" extensions="PDFGeneratorController">
+    <div style="page-break-before: always;"></div>
+    <div class="page stl_02"      >
+        <div class="stl_03">
+            <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/second-page-header.png')}" alt="" class="stl_47" />
+        </div>
+        <div class="container">
+            <c:PDFGeneratorHeader2 opportunityName="{!opportunity.Name}" 
+            opportunityLink="{!opLink}" 
+            createByUserName="{!user.Name}" 
+            opportunityAmount="{!opportunityAmount}" 
+            opportunitySplitAmount="{!opportunitySplitAmount}" 
+            currencyIsoCode="{!currencyIsoCode}"
+            projectManager="{!opportunity.projectManager__c}" 
+            opportunityEditionType__c="{!opportunity.editionType__c}"
+            logo="{!logo}" 
+            secondLogo="{!secondLogo}" />
+            <div class="line-text" style="top: 14em;">
+                <span class="label color-red">{!$Label.pdf_generator_customer_client} :</span>
+                <span class="text">{!opportunity.Account.Name}</span>
+            </div>
+            <div class="line-text" style="top: 15.5em;">
+                <span class="label left" style="width: 11em">{!$Label.pdf_generator_recent_refer} :</span>
+                <span class="text left" style="width:38.7em">{!opportunity.References_du_maitre_ouvrage__c}</span>
+            </div>
+            <div class="line-m dashed" style="top: 19em"></div>
+            <div class="line-text" style="top: 20em;">
+                <span class="label color-red">{!$Label.pdf_generator_amo_mod} :</span>
+                <span class="text">
+                    <apex:variable var="listIndex" value="{!0}" />
+                    <apex:repeat value="{!listDeAMO}" var="deAmo">
+                        <a href="{!baseLink}/{!deAmo.Id}" target="_blank">{!deAmo.AccountName__c}</a>
+                        <apex:variable var="listIndex" value="{!listIndex+1}" />
+                        <apex:outputText rendered="{!listIndex < listDeAMO.size}" value="," />
+                    </apex:repeat>
+                </span>
+            </div>
+            <div class="line-text" style="top: 21.5em;">
+                <span class="label left" style="width: 11em;">{!$Label.pdf_generator_recent_refer} :</span>
+                <span class="text left" style="width:38.7em;">{!opportunity.References_AMO__c}</span>
+            </div>
+            <div class="line-text" style="top: 25em;">
+                <span class="label color-red">{!$Label.pdf_generator_design_architect_moe} :</span>
+                <span class="text">
+                    <apex:variable var="listIndex" value="{!0}" />
+                    <apex:repeat value="{!listArchitectes}" var="architecter">
+                        <a href="{!baseLink}/{!architecter.Id}" target="_blank">{!architecter.AccountName__c}</a>
+                        <apex:variable var="listIndex" value="{!listIndex+1}" />
+                        <apex:outputText rendered="{!listIndex < listArchitectes.size}" value="," />
+                    </apex:repeat>
+                </span>
+            </div>
+            <div class="line-text" style="top: 26.5em;">
+                <span class="label left" style="width: 11em">{!$Label.pdf_generator_recent_refer} :</span>
+                <span class="text left" style="width:38.7em">{!opportunity.References_architecte__c}</span>
+            </div>
+            <div class="line-m dashed" style="top: 30em"></div>
+            <div class="text-box" style="top: 31.5em; height: 14.2em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_les_bet}</div>
+                    <div class="content">
+                        <div class="lesbet-col col-left">
+                            <apex:repeat value="{!listLesBet}" var="lesBet" first="0" rows="5">
+                                <div class="row {!IF(len(lesBet.AccountName__c) > 30, 'long-text', '')}">
+                                    <span class="p2-label-right p2-label-right inline" >{!lesBet.AccountMission__c}</span>
+                                    <span class="v-top inline" style="width: 43%"><a href="{!baseLink}/{!lesBet.Id}" target="_blank">{!lesBet.AccountName__c}</a></span>
+                                </div>
+                            </apex:repeat>
+                        </div>
+                        <div class="lesbet-col col-right">
+                            <apex:repeat value="{!listLesBet}" var="lesBet" first="5" rows="5">
+                                <div class="row {!IF(len(lesBet.AccountName__c) > 30, 'long-text', '')}">
+                                    <span class="p2-label-right p2-label-right inline" >{!lesBet.AccountMission__c}</span>
+                                    <span class="v-top inline" style="width: 43%"><a href="{!baseLink}/{!lesBet.Id}" target="_blank">{!lesBet.AccountName__c}</a></span>
+                                </div>
+                            </apex:repeat>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-text" style="top:47em">
+                <span class="label">{!$Label.pdf_generator_consultation_mode} :</span>
+                <span class="text">{!opportunity.Consultation__c}</span>
+            </div>
+            <div class="line-text g-midle" style="top:49em">
+                <span class="label">{!$Label.pdf_generator_group} :</span>
+                <span class="text">
+                    <c:PDFCheckboxLabel checked="{!VALUE(opportunity.Attelage__c)==4}" label="SOLIDAIRE"></c:PDFCheckboxLabel>
+                    <c:PDFCheckboxLabel checked="{!VALUE(opportunity.Attelage__c)==2 || VALUE(opportunity.Attelage__c)==3}" label="CONJOINT"></c:PDFCheckboxLabel>
+                </span>
+                <span class="label" style="margin-left: 2em">{!$Label.pdf_generator_representative} :</span>
+                <span class="text">
+                    <c:PDFCheckboxLabel checked="{!VALUE(opportunity.Role_groupement__c) == 1 || VALUE(opportunity.Role_groupement__c) == 9}" label="{!$Label.pdf_generator_yes}"></c:PDFCheckboxLabel>
+                    <c:PDFCheckboxLabel checked="{!VALUE(opportunity.Role_groupement__c) != 1 && VALUE(opportunity.Role_groupement__c) != 9}" label="{!$Label.pdf_generator_no}"></c:PDFCheckboxLabel>
+                </span>
+                <div style="float: right; text-align: right">
+                    <span class="text">
+                        <c:PDFCheckboxLabel checked="{!opportunity.Allotissement__c != '01'}" label="{!$Label.pdf_generator_ces}" style="margin:0;"></c:PDFCheckboxLabel>
+                    </span>
+                </div>
+            </div>
+            <div class="line-text g-midle" style="top:51.5em">
+                <span class="label">{!$Label.pdf_generator_type_contract} :</span>
+                <span class="text">{!opportunity.ContractTypeOpportunity__c}</span>
+                <div style="float: right; text-align: right">
+                    <span class="text">
+                        <c:PDFCheckboxLabel checked="{!BEGINS(opportunity.SoumisCadreMarches__c, 'publics')}" label="{!$Label.pdf_generator_public}"></c:PDFCheckboxLabel>
+                        <c:PDFCheckboxLabel checked="{!BEGINS(opportunity.SoumisCadreMarches__c, 'privés')}" label="{!$Label.pdf_generator_private}" style="margin:0"></c:PDFCheckboxLabel>
+                    </span>
+                </div>
+            </div>
+            <div class="line-text g-midle" style="top:54em">
+                <span class="label">{!$Label.pdf_generator_estimated_study_budget} :</span>
+                <span class="text">{!coutPrevisionnelDesEtudes}</span>
+                <div style="float: right; text-align: right">
+                    <span class="label">{!$Label.pdf_generator_budget_provided_plan} :</span>
+                    <span class="text">
+                        <c:PDFCheckboxLabel checked="{!opportunity.Budget_prevu_au_plan__c}" label="{!$Label.pdf_generator_yes}"></c:PDFCheckboxLabel>
+                        <c:PDFCheckboxLabel checked="{!opportunity.Budget_prevu_au_plan__c == FALSE}" label="{!$Label.pdf_generator_no}" style="margin:0"></c:PDFCheckboxLabel>
+                    </span>
+                </div>
+            </div>
+            <div class="text-box" style="top: 57em; height: 9em;">
+                <div class="inside">
+                    <div class="title">{!$Label.pdf_generator_business_env_comment}</div>
+                    <div class="content">
+                        {!opportunity.Commentaire_environnement__c}
+                    </div>
+                </div>
+            </div>
+            <c:PDFFooter text="{!$Label.pdf_generator_footer_text}" number="2"></c:PDFFooter>
+        </div>
+    </div>
+</apex:page>

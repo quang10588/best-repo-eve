@@ -1,0 +1,28 @@
+<aura:component controller="OpportunityController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+    <div class="wp">
+        <header class="slds-modal__header">
+            <lightning:buttonIcon 
+                iconName="utility:close"
+                onclick="{! c.close }"
+                alternativeText="close"
+                variant="bare-inverse"
+                class="slds-modal__close"/>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!$Label.c.opportunity_versioning_title}</h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <p><b>{!$Label.c.opportunity_versioning_content}</b></p>
+        </div>
+        <div class="footer-buttons">
+            <lightning:button 
+                variant="neutral"
+                label="{!$Label.c.cancel}"
+                title="{!$Label.c.cancel}"
+                onclick="{! c.close }"/>
+            <lightning:button 
+                variant="brand"
+                label="{!$Label.c.update}"
+                title="{!$Label.c.update}"
+                onclick="{!c.set}"/>
+        </div>
+    </div>
+</aura:component>

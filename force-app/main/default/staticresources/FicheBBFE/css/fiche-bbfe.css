@@ -1,0 +1,35 @@
+
+body {
+	/* Write any style for body of page*/
+}
+
+@page {
+	size: landscape; /*landscape orientation*/
+	/*page numbers in the bottom center of each page in the pdf document*/
+	@bottom-center {
+		content: "Page " counter(page) " of " counter(pages);
+	}
+	
+	/*placeholders for other content areas*/
+	@bottom-right {
+		content: "Bottom Right";
+	}
+
+	@bottom-left {
+		content: "Bottom Left";
+	}
+
+	@top-right {
+		content: "Top Right";
+	}
+
+	@top-center {
+		content: "Top Center";
+	}
+
+	@top-left {
+		content: "Top Left";
+	}
+
+}
+

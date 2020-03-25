@@ -1,0 +1,17 @@
+<apex:component layout="none">
+    <apex:attribute name="color" description="" type="String" />
+    <apex:attribute name="comment" description="" type="String" />
+    <td class="c3">
+        <div class="pdf-checkbox green {!IF(color=='V', 'active', '')}"><img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" /></div>
+    </td>
+    <td class="c4">
+        <div class="pdf-checkbox orange {!IF(color=='O', 'active', '')}"><img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" /></div>
+    </td>
+    <td class="c5">
+        <div class="pdf-checkbox red {!IF(color=='R', 'active', '')}"><img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" /></div>
+    </td>
+    <td class="c6" >
+        <div class="pdf-checkbox blue {!IF(color=='NA', 'active', '')}"><img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" /></div>
+    </td>
+    <td class="c7" valign="top">{!comment}</td>
+</apex:component>

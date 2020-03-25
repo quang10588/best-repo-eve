@@ -1,0 +1,15 @@
+<apex:component >
+    <apex:attribute name="checked" description="" type="Boolean" />
+    <apex:attribute name="label" description="" type="String" />
+    <apex:attribute name="style" description="" type="String" />
+    <apex:attribute name="list" description="" type="String" />
+    <apex:attribute name="value" description="" type="String" />
+    <div class="checkbox-label" style="{!style}">
+        <span class="text-label">{!label}</span>
+        <div class="pdf-checkbox-red">
+            <apex:outputPanel rendered="{!checked || (list != null && list!='' && value != '' && CONTAINS(';'+list+';', ';'+value+';'))}">
+                <img src="{!URLFOR($Resource.FicheBBFE,'img/pdf/check.png')}" alt="" class="stl_919" />
+            </apex:outputPanel>
+        </div>
+    </div>
+</apex:component>

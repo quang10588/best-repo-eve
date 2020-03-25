@@ -1,0 +1,64 @@
+<apex:component >
+    <apex:attribute name="opportunityName" description="" type="String" />
+    <apex:attribute name="createByUserName" description="" type="String" />
+    <apex:attribute name="opportunityAmount" description="" type="String" />
+    <apex:attribute name="opportunitySplitAmount" description="" type="String" />
+    <apex:attribute name="currencyIsoCode" description="" type="String" />
+    <apex:attribute name="opportunityEditionType__c" description="" type="String" />
+    <apex:attribute name="projectManager" description="" type="String" />
+    <apex:attribute name="logo" description="" type="String" />
+    <apex:attribute name="secondLogo" description="" type="String" />
+    <apex:attribute name="opportunityLink" description="" type="String" />
+
+    <apex:attribute name="logo" description="" type="String" />
+    <apex:attribute name="secondLogo" description="" type="String" />
+    <div style="page-break-before: always;"></div>
+    <div class="page-logo">
+        <apex:outputPanel rendered="{!logo != null && logo != 'NOT_FOUND'}">
+            <img src="{!logo}"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!logo == 'NOT_FOUND'}">
+            <div class="logo-not-found"><span>{!$Label.pdf_generator_image_not_found}</span></div>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!secondLogo != null && secondLogo != 'NOT_FOUND'}">
+            <img src="{!secondLogo}"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!secondLogo == 'NOT_FOUND'}">
+            <div class="logo-not-found"><span>{!$Label.pdf_generator_image_not_found}</span></div>
+        </apex:outputPanel>
+    </div>
+    <div class="stl_01" style="top: 2.5em;left: 11em;width: 13.8em;text-align: right;">
+        <span class="stl_48 h-title" style="font-weight:bold; word-spacing:0em;">{!$Label.pdf_generator_project_name} :</span>
+    </div>
+    <div class="stl_01" style="top: 1em;left: 25.7em;width: 18.5em;white-space: normal;height: 4em;">
+        <table cellpadding="0" style="width: 100%; height: 4em;">
+            <tbody>
+                <tr>
+                    <td style="width: 18.5em; height: 4em;vertical-align: middle;">
+                        <span class="stl_14 h-title" style="color: black;font-weight: normal; line-height: 110%">
+                            <a href="{!opportunityLink}" target="_blank">{!opportunityName}</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="stl_01" style="top: 6em;left: 11em;width: 13.8em;text-align: right;">
+        <span class="stl_48 h-title" style="font-weight:bold; word-spacing:0.03em;">{!$Label.pdf_generator_fiche} :</span>
+    </div>
+    <div class="stl_01" style="top: 6em;left: 25.7em;width: 18.5em;">
+        <span class="stl_14 h-title" style="color: black;font-weight: normal;">{!opportunityEditionType__c}</span>
+    </div>
+    <div class="stl_01" style="top: 8.33em;left: 11em;width: 13.8em;text-align: right;">
+        <span class="stl_49 stl_08 h-title" style="font-weight:bold; word-spacing:0.04em;">{!$Label.pdf_generator_total_amount_eur} :</span>
+    </div>
+    <div class="stl_01" style="top: 8.33em;left: 25.7em;width: 18.5em;">
+        <span class="stl_14 h-title" style="color: black;font-weight: normal;">{!opportunityAmount}</span>
+    </div>
+    <div class="stl_01" style="top: 10.47em;left: 11em;width: 13.8em;text-align: right;">
+        <span class="stl_49 stl_08 h-title" style="font-weight:bold; word-spacing:0.04em;">{!$Label.pdf_generator_split_amount_eur} :</span>
+    </div>
+    <div class="stl_01" style="top: 10.47em;left: 25.7em;width: 18.5em;">
+        <span class="stl_14 h-title" style="color: black;font-weight: normal;">{!opportunitySplitAmount}</span>
+    </div>
+</apex:component>

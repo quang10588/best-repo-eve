@@ -1,0 +1,31 @@
+<!--
+ - Created by Aurélien Clerc on 19/07/2019.
+ -->
+
+<aura:component description="GoogleMaps" implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId" controller="LTNG02_GoogleMaps">
+
+    <ltng:require scripts="{!$Resource.GoogleMaps}" afterScriptsLoaded="{!c.initialize}" />
+
+    <aura:attribute name="map" type="Object" />
+
+    <aura:attribute name="mapMarkers" type="Object"/>
+    <aura:attribute name="zoomLevel" type="Integer" />
+    <aura:attribute name="showFooter" type="Boolean" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isDisplay" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler event="force:refreshView" action="{!c.refreshView}"/>
+
+    <div id="map-canvas">
+    </div>
+
+    <aura:if isTrue="{!and(v.mapMarkers.length > 0, v.isDisplay)}">
+        <lightning:map
+                mapMarkers="{!v.mapMarkers}"
+                zoomLevel="{!v.zoomLevel}"
+                showFooter="{!v.showFooter}" />
+    </aura:if>
+
+</aura:component>
